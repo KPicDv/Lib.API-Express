@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { ApiMethod } from '../enums/ApiMethod';
+import Middleware from '../librairies/Middleware';
 import { Route } from '../types/routes';
 
 /**
@@ -51,7 +52,30 @@ const addRoute = (path: string, method: ApiMethod, target: Object, action: strin
         routes.push({
             method,
             path,
-            action
+            action,
+            middlewares: []
+        });
+        Reflect.defineMetadata('routes', routes, target.constructor);
+    }
+};
+
+/**
+ * Ajoute une route au contrôleur.
+ */
+const addMiddleware = (middleware: Middleware, target: Object, action: string) => {
+    if (!Reflect.hasMetadata('routes', target.constructor)) {
+        Reflect.defineMetadata('routes', [], target.constructor);
+    }
+
+    const routes = Reflect.getMetadata('routes', target.constructor) as Array<Route>;
+    const route = routes.find((r) => r.action == action);
+
+    if (route) {
+        route.middlewares.push(middleware);
+    } else {
+        routes.push({
+            action,
+            middlewares: [middleware]
         });
         Reflect.defineMetadata('routes', routes, target.constructor);
     }
@@ -62,5 +86,6 @@ export {
     Get,
     Post,
     Put,
-    Delete
+    Delete,
+    addMiddleware
 };

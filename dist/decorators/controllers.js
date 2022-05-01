@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Delete = exports.Put = exports.Post = exports.Get = exports.Controller = void 0;
+exports.addMiddleware = exports.Delete = exports.Put = exports.Post = exports.Get = exports.Controller = void 0;
 require("reflect-metadata");
 const ApiMethod_1 = require("../enums/ApiMethod");
 /**
@@ -50,8 +50,30 @@ const addRoute = (path, method, target, action) => {
         routes.push({
             method,
             path,
-            action
+            action,
+            middlewares: []
         });
         Reflect.defineMetadata('routes', routes, target.constructor);
     }
 };
+/**
+ * Ajoute une route au contrôleur.
+ */
+const addMiddleware = (middleware, target, action) => {
+    if (!Reflect.hasMetadata('routes', target.constructor)) {
+        Reflect.defineMetadata('routes', [], target.constructor);
+    }
+    const routes = Reflect.getMetadata('routes', target.constructor);
+    const route = routes.find((r) => r.action == action);
+    if (route) {
+        route.middlewares.push(middleware);
+    }
+    else {
+        routes.push({
+            action,
+            middlewares: [middleware]
+        });
+        Reflect.defineMetadata('routes', routes, target.constructor);
+    }
+};
+exports.addMiddleware = addMiddleware;

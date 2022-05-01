@@ -1,6 +1,6 @@
 {
-  "name": "api-express",
-  "version": "0.1.0",
+  "name": "@kpic/api-express",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {

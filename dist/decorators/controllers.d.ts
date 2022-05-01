@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import Middleware from '../librairies/Middleware';
 /**
  * Définit la classe comme étant un contrôleur.
  */
@@ -19,4 +20,8 @@ declare const Put: (path?: string) => MethodDecorator;
  * Définit la méthode comme étant une API DELETE.
  */
 declare const Delete: (path?: string) => MethodDecorator;
-export { Controller, Get, Post, Put, Delete };
+/**
+ * Ajoute une route au contrôleur.
+ */
+declare const addMiddleware: (middleware: Middleware, target: Object, action: string) => void;
+export { Controller, Get, Post, Put, Delete, addMiddleware };
