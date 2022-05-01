@@ -1,8 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addMiddleware = exports.Delete = exports.Put = exports.Post = exports.Get = exports.Controller = void 0;
+exports.addMiddleware = exports.Validate = exports.Delete = exports.Put = exports.Post = exports.Get = exports.Controller = void 0;
 require("reflect-metadata");
 const ApiMethod_1 = require("../enums/ApiMethod");
+const ValidationMiddleware_1 = __importDefault(require("../middlewares/ValidationMiddleware"));
 /**
  * Définit la classe comme étant un contrôleur.
  */
@@ -56,6 +60,13 @@ const addRoute = (path, method, target, action) => {
         Reflect.defineMetadata('routes', routes, target.constructor);
     }
 };
+/**
+ * Ajoute le middleware de validation.
+ */
+const Validate = (validations) => {
+    return (target, propertyKey) => (addMiddleware(new ValidationMiddleware_1.default(validations), target, propertyKey));
+};
+exports.Validate = Validate;
 /**
  * Ajoute une route au contrôleur.
  */

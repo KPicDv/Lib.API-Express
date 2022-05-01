@@ -21,7 +21,11 @@ declare const Put: (path?: string) => MethodDecorator;
  */
 declare const Delete: (path?: string) => MethodDecorator;
 /**
+ * Ajoute le middleware de validation.
+ */
+declare const Validate: (validations: Array<any>) => MethodDecorator;
+/**
  * Ajoute une route au contrôleur.
  */
 declare const addMiddleware: (middleware: Middleware, target: Object, action: string) => void;
-export { Controller, Get, Post, Put, Delete, addMiddleware };
+export { Controller, Get, Post, Put, Delete, Validate, addMiddleware };

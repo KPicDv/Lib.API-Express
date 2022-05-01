@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { ApiMethod } from '../enums/ApiMethod';
 import Middleware from '../middlewares/Middleware';
+import ValidationMiddleware from '../middlewares/ValidationMiddleware';
 import { Route } from '../types/routes';
 
 /**
@@ -60,6 +61,15 @@ const addRoute = (path: string, method: ApiMethod, target: Object, action: strin
 };
 
 /**
+ * Ajoute le middleware de validation.
+ */
+const Validate = (validations: Array<any>): MethodDecorator => {
+    return (target, propertyKey): void => (
+        addMiddleware(new ValidationMiddleware(validations), target, propertyKey as string)
+    )
+}
+
+/**
  * Ajoute une route au contrôleur.
  */
 const addMiddleware = (middleware: Middleware, target: Object, action: string) => {
@@ -87,5 +97,6 @@ export {
     Post,
     Put,
     Delete,
+    Validate,
     addMiddleware
 };
