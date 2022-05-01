@@ -41,7 +41,7 @@ export default class App {
      * Ecoute le port.
      */
     public listen(port: number) {
-        this._app.listen(port, () => Logger.info(`Serveur lancé sur le port ${port}.`));
+        this._app.listen(port, '0.0.0.0', () => Logger.info(`Serveur lancé sur le port ${port}.`));
     }
 
     get app() {
