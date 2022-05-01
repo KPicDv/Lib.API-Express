@@ -1,4 +1,5 @@
 import 'colors';
+import 'express-async-errors';
 export default class App {
     private _app;
     /**

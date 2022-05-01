@@ -1,4 +1,5 @@
 import 'colors'
+import 'express-async-errors'
 import express from 'express'
 import cors from 'cors'
 import { Route } from '../types/routes';
