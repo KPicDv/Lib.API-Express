@@ -32,7 +32,8 @@ class App {
                     return;
                 }
                 const action = instance[route.action].bind(instance);
-                this.app[route.method](prefix + route.path, action);
+                const middlewares = route.middlewares.map((middleware) => middleware.handler());
+                this._app[route.method](prefix + route.path, middlewares, action);
             });
         });
     }

@@ -31,8 +31,9 @@ export default class App {
                 }
 
                 const action = (instance[route.action as keyof typeof instance] as Function).bind(instance);
+                const middlewares = route.middlewares.map((middleware) => middleware.handler())
 
-                this.app[route.method](prefix + route.path, action);
+                this._app[route.method](prefix + route.path, middlewares, action)
             });
         });
     }
