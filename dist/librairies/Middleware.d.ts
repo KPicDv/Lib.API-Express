@@ -1,3 +1,4 @@
+/// <reference types="qs" />
 import { NextFunction, Request, Response } from 'express';
 export default abstract class Middleware {
     abstract handle(req: Request, res: Response, next: NextFunction): Promise<void>;
