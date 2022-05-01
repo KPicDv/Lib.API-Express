@@ -11,6 +11,10 @@ export default class App {
      */
     initControllers(controllers: Array<any>): void;
     /**
+     * Traitement des url introuvables.
+     */
+    handleNotFoundUrls(): void;
+    /**
      * Traitement des exceptions.
      */
     handleErrors(): void;

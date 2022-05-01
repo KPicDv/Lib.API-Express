@@ -39,6 +39,11 @@ class App {
                 this._app[route.method](prefix + route.path, middlewares, action);
             });
         });
+    }
+    /**
+     * Traitement des url introuvables.
+     */
+    handleNotFoundUrls() {
         this._app.use(() => {
             throw new NotFoundException_1.default(true);
         });

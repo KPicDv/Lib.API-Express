@@ -40,6 +40,12 @@ export default class App {
             });
         });
 
+    }
+    
+    /**
+     * Traitement des url introuvables.
+     */
+    public handleNotFoundUrls() {
         this._app.use(() => {
             throw new NotFoundException(true)
         })
