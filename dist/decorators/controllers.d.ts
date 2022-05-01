@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import Middleware from '../librairies/Middleware';
+import Middleware from '../middlewares/Middleware';
 /**
  * Définit la classe comme étant un contrôleur.
  */

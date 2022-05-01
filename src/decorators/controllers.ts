@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { ApiMethod } from '../enums/ApiMethod';
-import Middleware from '../librairies/Middleware';
+import Middleware from '../middlewares/Middleware';
 import { Route } from '../types/routes';
 
 /**

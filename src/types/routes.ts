@@ -1,5 +1,5 @@
 import { ApiMethod } from '../enums/ApiMethod';
-import Middleware from '../librairies/Middleware';
+import Middleware from '../middlewares/Middleware';
 
 export type Route = {
     path?: string

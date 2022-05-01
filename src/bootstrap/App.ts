@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import { Route } from '../types/routes';
 import Logger from '../librairies/Logger';
+import NotFoundException from '../exceptions/NotFoundException';
 
 export default class App {
     private _app = express()
@@ -36,6 +37,10 @@ export default class App {
                 this._app[route.method](prefix + route.path, middlewares, action)
             });
         });
+
+        this._app.use(() => {
+            throw new NotFoundException(true)
+        })
     }
 
     /**

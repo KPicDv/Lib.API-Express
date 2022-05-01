@@ -7,6 +7,7 @@ require("colors");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const Logger_1 = __importDefault(require("../librairies/Logger"));
+const NotFoundException_1 = __importDefault(require("../exceptions/NotFoundException"));
 class App {
     constructor() {
         this._app = (0, express_1.default)();
@@ -35,6 +36,9 @@ class App {
                 const middlewares = route.middlewares.map((middleware) => middleware.handler());
                 this._app[route.method](prefix + route.path, middlewares, action);
             });
+        });
+        this._app.use(() => {
+            throw new NotFoundException_1.default(true);
         });
     }
     /**
