@@ -16,6 +16,13 @@ const Controller = (prefix = ''): ClassDecorator => (target: any) => {
 };
 
 /**
+ * Ajoute l'authentification au contrôleur.
+ */
+const Auth = (): ClassDecorator => (target: any) => {
+    Reflect.defineMetadata('auth', true, target);
+};
+
+/**
  * Définit la méthode comme étant une API GET.
  */
 const Get = (path = ''): MethodDecorator => (target, propertyKey): void => addRoute(path, ApiMethod.Get, target, propertyKey as string);
@@ -93,6 +100,7 @@ const addMiddleware = (middleware: Middleware, target: Object, action: string) =
 
 export {
     Controller,
+    Auth,
     Get,
     Post,
     Put,

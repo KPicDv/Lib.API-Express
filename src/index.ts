@@ -1,5 +1,5 @@
 import App from './bootstrap/App'
-import { Controller, Get, Post, Put, Delete, Validate, addMiddleware } from './decorators/controllers'
+import { Controller, Auth, Get, Post, Put, Delete, Validate, addMiddleware } from './decorators/controllers'
 import { ApiMethod } from './enums/ApiMethod'
 import { LogType } from './enums/LogType'
 import BadRequestException from './exceptions/BadRequestException'
@@ -26,6 +26,7 @@ export {
     NotFoundException,
     UnauthorizedException,
     Controller,
+    Auth,
     Get,
     Post,
     Put,

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addMiddleware = exports.Validate = exports.Delete = exports.Put = exports.Post = exports.Get = exports.Controller = void 0;
+exports.addMiddleware = exports.Validate = exports.Delete = exports.Put = exports.Post = exports.Get = exports.Auth = exports.Controller = void 0;
 require("reflect-metadata");
 const ApiMethod_1 = require("../enums/ApiMethod");
 const ValidationMiddleware_1 = __importDefault(require("../middlewares/ValidationMiddleware"));
@@ -17,6 +17,13 @@ const Controller = (prefix = '') => (target) => {
     }
 };
 exports.Controller = Controller;
+/**
+ * Ajoute l'authentification au contrôleur.
+ */
+const Auth = () => (target) => {
+    Reflect.defineMetadata('auth', true, target);
+};
+exports.Auth = Auth;
 /**
  * Définit la méthode comme étant une API GET.
  */

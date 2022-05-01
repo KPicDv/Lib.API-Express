@@ -5,6 +5,10 @@ import Middleware from '../middlewares/Middleware';
  */
 declare const Controller: (prefix?: string) => ClassDecorator;
 /**
+ * Ajoute l'authentification au contrôleur.
+ */
+declare const Auth: () => ClassDecorator;
+/**
  * Définit la méthode comme étant une API GET.
  */
 declare const Get: (path?: string) => MethodDecorator;
@@ -28,4 +32,4 @@ declare const Validate: (validations: Array<any>) => MethodDecorator;
  * Ajoute une route au contrôleur.
  */
 declare const addMiddleware: (middleware: Middleware, target: Object, action: string) => void;
-export { Controller, Get, Post, Put, Delete, Validate, addMiddleware };
+export { Controller, Auth, Get, Post, Put, Delete, Validate, addMiddleware };
