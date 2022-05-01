@@ -4,6 +4,7 @@ import cors from 'cors'
 import { Route } from '../types/routes';
 import Logger from '../librairies/Logger';
 import NotFoundException from '../exceptions/NotFoundException';
+import ExceptionHandlerMiddleware from '../middlewares/ExceptionHandlerMiddleware';
 
 export default class App {
     private _app = express()
@@ -41,6 +42,13 @@ export default class App {
         this._app.use(() => {
             throw new NotFoundException(true)
         })
+    }
+    
+    /**
+     * Traitement des exceptions.
+     */
+    public handleErrors() {
+        this._app.use(new ExceptionHandlerMiddleware().handler())
     }
 
     /**

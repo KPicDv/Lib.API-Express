@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const Logger_1 = __importDefault(require("../librairies/Logger"));
 const NotFoundException_1 = __importDefault(require("../exceptions/NotFoundException"));
+const ExceptionHandlerMiddleware_1 = __importDefault(require("../middlewares/ExceptionHandlerMiddleware"));
 class App {
     constructor() {
         this._app = (0, express_1.default)();
@@ -40,6 +41,12 @@ class App {
         this._app.use(() => {
             throw new NotFoundException_1.default(true);
         });
+    }
+    /**
+     * Traitement des exceptions.
+     */
+    handleErrors() {
+        this._app.use(new ExceptionHandlerMiddleware_1.default().handler());
     }
     /**
      * Ecoute le port.

@@ -10,6 +10,10 @@ export default class App {
      */
     initControllers(controllers: Array<any>): void;
     /**
+     * Traitement des exceptions.
+     */
+    handleErrors(): void;
+    /**
      * Ecoute le port.
      */
     listen(port: number): void;
