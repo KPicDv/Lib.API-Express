@@ -1,7 +1,10 @@
+/// <reference types="node" />
 import 'colors';
 import 'express-async-errors';
+import http from 'http';
 export default class App {
     private _app;
+    private _server;
     /**
      * Initialise Express.
      */
@@ -23,4 +26,5 @@ export default class App {
      */
     listen(port: number): void;
     get app(): import("express-serve-static-core").Express;
+    get server(): http.Server;
 }

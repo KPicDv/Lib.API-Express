@@ -7,6 +7,7 @@ require("colors");
 require("express-async-errors");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const http_1 = __importDefault(require("http"));
 const Logger_1 = __importDefault(require("../librairies/Logger"));
 const NotFoundException_1 = __importDefault(require("../exceptions/NotFoundException"));
 const ExceptionHandlerMiddleware_1 = __importDefault(require("../middlewares/ExceptionHandlerMiddleware"));
@@ -18,6 +19,7 @@ class App {
      * Initialise Express.
      */
     init() {
+        this._server = http_1.default.createServer(this._app);
         this._app.use(express_1.default.json());
         this._app.use((0, cors_1.default)({ origin: '*' }));
     }
@@ -62,6 +64,9 @@ class App {
     }
     get app() {
         return this._app;
+    }
+    get server() {
+        return this._server;
     }
 }
 exports.default = App;
