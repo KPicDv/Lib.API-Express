@@ -2,6 +2,7 @@ import 'colors'
 import 'express-async-errors'
 import express from 'express'
 import cors from 'cors'
+import http from 'http'
 import { Route } from '../types/routes';
 import Logger from '../librairies/Logger';
 import NotFoundException from '../exceptions/NotFoundException';
@@ -9,11 +10,14 @@ import ExceptionHandlerMiddleware from '../middlewares/ExceptionHandlerMiddlewar
 
 export default class App {
     private _app = express()
+    private _server!: http.Server
+    
 
     /**
      * Initialise Express.
      */
     public init() {
+        this._server = http.createServer(this._app)
         this._app.use(express.json())
         this._app.use(cors({ origin: '*' }))
     }
@@ -67,5 +71,9 @@ export default class App {
 
     get app() {
         return this._app
+    }
+
+    get server() {
+        return this._server
     }
 }
