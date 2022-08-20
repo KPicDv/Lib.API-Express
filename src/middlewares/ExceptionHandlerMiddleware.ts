@@ -12,9 +12,8 @@ export default class ExceptionHandlerMiddleware {
 
             res.status(error.status).json(error.toJson());
         } else {
-            
             Logger.error(`${req.url} [ERREUR INCONNUE]`);
-            console.log(error);
+            console.error(error);
 
             res.status(500).json({
                 message: 'Une erreur est survenue'

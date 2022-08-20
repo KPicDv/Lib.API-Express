@@ -11,10 +11,7 @@ class InvalidFormException extends HttpException_1.default {
     }
     toJson() {
         return {
-            errors: Object.fromEntries(this._errors.map((error) => [
-                error.param,
-                error.msg
-            ]))
+            errors: this._errors
         };
     }
 }

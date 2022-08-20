@@ -26,7 +26,7 @@ class ExceptionHandlerMiddleware {
             }
             else {
                 Logger_1.default.error(`${req.url} [ERREUR INCONNUE]`);
-                console.log(error);
+                console.error(error);
                 res.status(500).json({
                     message: 'Une erreur est survenue'
                 });

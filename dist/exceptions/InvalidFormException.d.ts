@@ -1,11 +1,8 @@
 import HttpException from './HttpException';
-declare type ValidationError = {
-    param: string;
-    msg: string;
-};
 export default class InvalidFormException extends HttpException {
     private readonly _errors;
-    constructor(errors: Array<ValidationError>);
+    constructor(errors: {
+        [key: string]: string;
+    });
     toJson(): any;
 }
-export {};

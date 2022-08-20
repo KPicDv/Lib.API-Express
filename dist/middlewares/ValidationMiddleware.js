@@ -27,8 +27,14 @@ class ValidationMiddleware extends Middleware_1.default {
         return __awaiter(this, void 0, void 0, function* () {
             yield Promise.all(this._validations.map((validation) => validation.run(req)));
             const errors = (0, express_validator_1.validationResult)(req);
-            if (!errors.isEmpty())
-                throw new InvalidFormException_1.default(errors.array({ onlyFirstError: true }));
+            if (!errors.isEmpty()) {
+                const mappedErrors = Object.fromEntries(errors.array({ onlyFirstError: true })
+                    .map((error) => [
+                    error.param,
+                    error.msg
+                ]));
+                throw new InvalidFormException_1.default(mappedErrors);
+            }
             next();
         });
     }

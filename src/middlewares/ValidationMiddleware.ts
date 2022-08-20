@@ -19,7 +19,16 @@ export default class ValidationMiddleware extends Middleware {
 
         const errors = validationResult(req);
 
-        if (!errors.isEmpty()) throw new InvalidFormException(errors.array({ onlyFirstError: true }));
+        if (!errors.isEmpty()) {
+            const mappedErrors = Object.fromEntries(
+                errors.array({ onlyFirstError: true })
+                    .map((error) => [
+                        error.param,
+                        error.msg
+                    ])
+            )
+            throw new InvalidFormException(mappedErrors);
+        }
 
         next();
     }
