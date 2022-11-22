@@ -8,7 +8,7 @@ require("express-async-errors");
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const http_1 = __importDefault(require("http"));
-const Logger_1 = __importDefault(require("../librairies/Logger"));
+const logger_1 = require("@kpic/logger");
 const NotFoundException_1 = __importDefault(require("../exceptions/NotFoundException"));
 const ExceptionHandlerMiddleware_1 = __importDefault(require("../middlewares/ExceptionHandlerMiddleware"));
 class App {
@@ -33,7 +33,7 @@ class App {
             const instance = new Controller();
             routes.forEach((route) => {
                 if (!route.method) {
-                    Logger_1.default.error(`${Controller.name}.${route.action} n\'est pas définie.`.red);
+                    logger_1.Logger.error(`${Controller.name}.${route.action} n\'est pas définie.`.red);
                     return;
                 }
                 const action = instance[route.action].bind(instance);
@@ -60,7 +60,7 @@ class App {
      * Ecoute le port.
      */
     listen(port) {
-        this._app.listen(port, '0.0.0.0', () => Logger_1.default.info(`Serveur lancé sur le port ${port}.`));
+        this._app.listen(port, '0.0.0.0', () => logger_1.Logger.info(`Serveur lancé sur le port ${port}.`));
     }
     get app() {
         return this._app;

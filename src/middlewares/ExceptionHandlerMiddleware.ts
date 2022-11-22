@@ -1,6 +1,6 @@
+import { Logger } from '@kpic/logger';
 import { NextFunction, Request, Response } from 'express';
 import HttpException from '../exceptions/HttpException';
-import Logger from '../librairies/Logger';
 
 export default class ExceptionHandlerMiddleware {
     /**

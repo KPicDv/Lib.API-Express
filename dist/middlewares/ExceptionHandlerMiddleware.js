@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = require("@kpic/logger");
 const HttpException_1 = __importDefault(require("../exceptions/HttpException"));
-const Logger_1 = __importDefault(require("../librairies/Logger"));
 class ExceptionHandlerMiddleware {
     /**
      * Traitement des exceptions.
@@ -21,11 +21,11 @@ class ExceptionHandlerMiddleware {
     handle(error, req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             if (error instanceof HttpException_1.default) {
-                Logger_1.default.error(`${req.url} [ERREUR ${error.status}] → ${error.message}`);
+                logger_1.Logger.error(`${req.url} [ERREUR ${error.status}] → ${error.message}`);
                 res.status(error.status).json(error.toJson());
             }
             else {
-                Logger_1.default.error(`${req.url} [ERREUR INCONNUE]`);
+                logger_1.Logger.error(`${req.url} [ERREUR INCONNUE]`);
                 console.error(error);
                 res.status(500).json({
                     message: 'Une erreur est survenue'

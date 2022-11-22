@@ -4,14 +4,13 @@ import express from 'express'
 import cors from 'cors'
 import http from 'http'
 import { Route } from '../types/routes';
-import Logger from '../librairies/Logger';
+import { Logger } from '@kpic/logger';
 import NotFoundException from '../exceptions/NotFoundException';
 import ExceptionHandlerMiddleware from '../middlewares/ExceptionHandlerMiddleware';
 
 export default class App {
     private _app = express()
     private _server!: http.Server
-    
 
     /**
      * Initialise Express.
@@ -43,7 +42,6 @@ export default class App {
                 this._app[route.method](prefix + route.path, middlewares, action)
             });
         });
-
     }
     
     /**
