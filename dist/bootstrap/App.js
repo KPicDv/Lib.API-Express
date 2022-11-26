@@ -60,7 +60,7 @@ class App {
      * Ecoute le port.
      */
     listen(port) {
-        this._app.listen(port, '0.0.0.0', () => logger_1.Logger.info(`Serveur lancé sur le port ${port}.`));
+        this._server.listen(port, '0.0.0.0', () => logger_1.Logger.info(`Serveur lancé sur le port ${port}.`));
     }
     get app() {
         return this._app;

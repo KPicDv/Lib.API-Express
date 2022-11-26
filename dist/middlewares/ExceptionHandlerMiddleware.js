@@ -21,7 +21,7 @@ class ExceptionHandlerMiddleware {
     handle(error, req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             if (error instanceof HttpException_1.default) {
-                logger_1.Logger.error(`${req.url} [ERREUR ${error.status}] → ${error.message}`);
+                logger_1.Logger.error(`[${req.method.toUpperCase()}] ${req.url} [ERREUR ${error.status}] → ${error.message}`);
                 res.status(error.status).json(error.toJson());
             }
             else {

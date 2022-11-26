@@ -8,7 +8,7 @@ export default class ExceptionHandlerMiddleware {
      */
     public async handle(error: Error | string, req: Request, res: Response, next: NextFunction) {
         if (error instanceof HttpException) {
-            Logger.error(`${req.url} [ERREUR ${error.status}] → ${error.message}`);
+            Logger.error(`[${req.method.toUpperCase()}] ${req.url} [ERREUR ${error.status}] → ${error.message}`);
 
             res.status(error.status).json(error.toJson());
         } else {
