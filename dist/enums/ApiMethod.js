@@ -6,5 +6,6 @@ var ApiMethod;
     ApiMethod["Get"] = "get";
     ApiMethod["Post"] = "post";
     ApiMethod["Put"] = "put";
+    ApiMethod["Patch"] = "patch";
     ApiMethod["Delete"] = "delete";
 })(ApiMethod = exports.ApiMethod || (exports.ApiMethod = {}));

@@ -63,8 +63,13 @@ export default class App {
     /**
      * Ecoute le port.
      */
-    public listen(port: number) {
-        this._server.listen(port, '0.0.0.0', () => Logger.info(`Serveur lancé sur le port ${port}.`));
+    public async listen(port: number) {
+        return new Promise<void>((resolve) => {
+            this._server.listen(port, '0.0.0.0', () => {
+                Logger.info(`Serveur lancé sur le port ${port}.`)
+                resolve();
+            });
+        })
     }
 
     get app() {

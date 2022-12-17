@@ -24,7 +24,7 @@ export default class App {
     /**
      * Ecoute le port.
      */
-    listen(port: number): void;
+    listen(port: number): Promise<void>;
     get app(): import("express-serve-static-core").Express;
     get server(): http.Server;
 }
