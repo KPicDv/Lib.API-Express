@@ -2,20 +2,19 @@ import Middleware from '../middlewares/Middleware';
 import ValidationMiddleware from '../middlewares/ValidationMiddleware';
 import { Route } from '../types/routes';
 
-
 /**
  * Ajoute le middleware de validation.
  */
-const Validate = (validations: Array<any>): MethodDecorator => {
-    return (target, propertyKey): void => (
-        addMiddleware(new ValidationMiddleware(validations), target, propertyKey as string)
+const Validate = (validations: Array<any>): MethodDecorator => (
+    (target, propertyKey): void => (
+        addRouteMiddleware(new ValidationMiddleware(validations), target, propertyKey as string)
     )
-}
+)
 
 /**
- * Ajoute une route au contrôleur.
+ * Ajoute un middleware à la route.
  */
-const addMiddleware = (middleware: Middleware, target: Object, action: string) => {
+const addRouteMiddleware = (middleware: Middleware, target: Object, action: string) => {
     if (!Reflect.hasMetadata('routes', target.constructor)) {
         Reflect.defineMetadata('routes', [], target.constructor);
     }
@@ -34,7 +33,20 @@ const addMiddleware = (middleware: Middleware, target: Object, action: string) =
     }
 };
 
+/**
+ * Ajoute un middleware au contrôleur.
+ */
+const addControllerMiddleware = (middleware: Middleware, target: Object) => {
+    if (!Reflect.hasMetadata('middlewares', target.constructor)) {
+        Reflect.defineMetadata('middlewares', [], target.constructor);
+    }
+
+    const middlewares = Reflect.getMetadata('middlewares', target.constructor) as Array<Middleware>;
+    middlewares.push(middleware);
+};
+
 export {
     Validate,
-    addMiddleware
+    addRouteMiddleware,
+    addControllerMiddleware,
 };

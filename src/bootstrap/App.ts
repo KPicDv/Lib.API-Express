@@ -7,6 +7,7 @@ import { Route } from '../types/routes';
 import { Logger } from '@kpic/logger';
 import NotFoundException from '../exceptions/NotFoundException';
 import ExceptionHandlerMiddleware from '../middlewares/ExceptionHandlerMiddleware';
+import Middleware from '../middlewares/Middleware'
 
 export default class App {
     private _app = express()
@@ -27,6 +28,7 @@ export default class App {
     public initControllers(controllers: Array<any>) {
         controllers.forEach((Controller) => {
             const prefix = Reflect.getMetadata('prefix', Controller) as string;
+            const controllerMiddlewares = Reflect.getMetadata('middlewares', Controller) as Array<Middleware>;
             const routes = Reflect.getMetadata('routes', Controller) as Array<Route>;
             const instance = new Controller();
 
@@ -37,7 +39,10 @@ export default class App {
                 }
 
                 const action = (instance[route.action as keyof typeof instance] as Function).bind(instance);
-                const middlewares = route.middlewares.map((middleware) => middleware.handler())
+                const middlewares = [
+                    ...controllerMiddlewares.map((middleware) => middleware.handler()),
+                    ...route.middlewares.map((middleware) => middleware.handler())
+                ]
 
                 this._app[route.method](prefix + route.path, middlewares, action)
             });

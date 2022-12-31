@@ -1,7 +1,7 @@
 import App from './bootstrap/App'
-import { Controller, Auth  } from './decorators/controllers'
+import { Controller  } from './decorators/controllers'
 import { Get, Post, Put, Patch, Delete } from './decorators/routes'
-import { Validate, addMiddleware } from './decorators/middlewares'
+import { Validate, addRouteMiddleware, addControllerMiddleware } from './decorators/middlewares'
 import { ApiMethod } from './enums/ApiMethod'
 import BadRequestException from './exceptions/BadRequestException'
 import HttpException from './exceptions/HttpException'
@@ -26,12 +26,12 @@ export {
     UnauthorizedException,
     ForbiddenException,
     Controller,
-    Auth,
     Get,
     Post,
     Put,
     Patch,
     Delete,
     Validate,
-    addMiddleware
+    addRouteMiddleware,
+    addControllerMiddleware
 }

@@ -9,16 +9,12 @@ const Controller = (prefix = ''): ClassDecorator => (target: any) => {
     if (!Reflect.hasMetadata('routes', target)) {
         Reflect.defineMetadata('routes', [], target);
     }
-};
-
-/**
- * Ajoute l'authentification au contrôleur.
- */
-const Auth = (): ClassDecorator => (target: any) => {
-    Reflect.defineMetadata('auth', true, target);
+    
+    if (!Reflect.hasMetadata('middlewares', target)) {
+        Reflect.defineMetadata('middlewares', [], target);
+    }
 };
 
 export {
     Controller,
-    Auth,
 };
