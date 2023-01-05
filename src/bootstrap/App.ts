@@ -54,7 +54,7 @@ export default class App {
      */
     public handleNotFoundUrls() {
         this._app.use(() => {
-            throw new NotFoundException(true)
+            throw new NotFoundException('API invalide.')
         })
     }
     
