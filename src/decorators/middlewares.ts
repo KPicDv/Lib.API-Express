@@ -15,11 +15,7 @@ const Validate = (validations: Array<any>): MethodDecorator => (
  * Ajoute un middleware à la route.
  */
 const addRouteMiddleware = (middleware: Middleware, target: Object, action: string) => {
-    if (!Reflect.hasMetadata('routes', target.constructor)) {
-        Reflect.defineMetadata('routes', [], target.constructor);
-    }
-
-    const routes = Reflect.getMetadata('routes', target.constructor) as Array<Route>;
+    const routes = (Reflect.getMetadata('routes', target.constructor) || []) as Array<Route>;
     const route = routes.find((r) => r.action == action);
 
     if (route) {
@@ -37,12 +33,9 @@ const addRouteMiddleware = (middleware: Middleware, target: Object, action: stri
  * Ajoute un middleware au contrôleur.
  */
 const addControllerMiddleware = (middleware: Middleware, target: Object) => {
-    if (!Reflect.hasMetadata('middlewares', target.constructor)) {
-        Reflect.defineMetadata('middlewares', [], target.constructor);
-    }
-
-    const middlewares = Reflect.getMetadata('middlewares', target.constructor) as Array<Middleware>;
+    const middlewares = (Reflect.getMetadata('middlewares', target) || []) as Array<Middleware>;
     middlewares.push(middleware);
+    Reflect.defineMetadata('middlewares', middlewares, target);
 };
 
 export {
