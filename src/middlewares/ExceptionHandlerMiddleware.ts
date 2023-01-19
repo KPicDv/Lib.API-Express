@@ -7,6 +7,7 @@ export default class ExceptionHandlerMiddleware {
      * Traitement des exceptions.
      */
     public async handle(error: Error | string, req: Request, res: Response, next: NextFunction) {
+        req.error = typeof error == 'string' ? new Error(error) : error;
         if (error instanceof HttpException) {
             Logger.error(`[${req.method.toUpperCase()}] ${req.url} [ERREUR ${error.status}] → ${error.message}`);
 
